@@ -28,6 +28,26 @@ class TaskController extends Controller
         $task->delete();
         return response()->json(['message' => 'Task deleted successfully'], 200);
     }
+
+    public function updateStatus(Request $request, Task $task)
+    {
+        $validated = $request->validate([
+            'completed' => 'required|boolean',
+        ]);
+    
+        $task->update($validated);
+    
+        return response()->json(['message' => 'Task status updated successfully'], 200);
+    }
+    
+    public function update(Request $request, Task $task)
+    {
+        $task->name = $request->name;
+        $task->save();
+        return response()->json(['message' => 'Task updated successfully'], 200);
+    }
+
+
 }
 
 
